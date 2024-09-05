@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+        header{
+            display: flex;
+            justify-content: center;
+            color: lime;
+        }
+        span{
+            color: goldenrod;
+        }
+        form{
+            display: flex;
+            justify-content: space-between;
+            
+        }
+        h3{
+            font-size: large;
+            display: flex;
+            justify-content: center;
+        }
+        th{
+            background: greenyellow;
+            
+        }
+        .close-btn {
+            cursor: pointer;
+            color:#333;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1;
+        }
+        .close-btn:hover {
+            color: rgb(245, 30, 30);
+        }
+      
+        @media(max-width: 480px){
+            form{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        }
+
+    </style>
+</head>
+<body>
+    <section class="container">
+        <header class="header"><h2>Daily Expence<span>$</span></h2></header>
+        <input id="limit" type="number" placeholder="enter the limit">
+        <form id="expenseform">
+            <input type="text" id="description" placeholder="Expense Description" required/><br>
+            <select id="category" required>
+                <option value="">Select Category</option>
+                <option value="Food">Food</option>
+                <option value="Transport">Transport</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Others">Others</option>
+                
+            </select><br>
+            <input type="number" id="amount" placeholder="Amount" required/><br>
+            
+            <input type="submit" value="Add Expense">
+
+        </form>
+        <h3><u>Expense Summary</u></h3>
+        <table id="expenseTable">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th >Amount</th>
+                    <!-- <th>Close</th> -->
+                </tr>
+            </thead>
+            <tbody id="expensebody">
+
+            </tbody>
+            
+        </table>
+
+    </section>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script>
+        let expenseForm = document.getElementById('expenseform');
+        let expenseTable = document.getElementById('expenseTable');
+        let expensebody = document.getElementById('expensebody');
+        let applicable =true;
+
+       let limit = document.getElementById('limit');
+        expenseForm.addEventListener('submit',function(e){
+            // event.preventDefault();
+            let amounttab = expensebody.getElementsByTagName('tr');
+            let totalAmount = 0;
+            
+            for(let i of amounttab){
+                // let row = amounttab[i];
+                
+                let amount =i.getElementsByTagName('td');
+                if (amount.length > 2){
+                    let amountValue = parseInt(amount[2].textContent);
+                    if (!isNaN(amountValue)) {
+                        totalAmount += amountValue;
+                        let limitamount = limit.value;
+                
+                    if(!isNaN(totalAmount) && totalAmount>limitamount){
+                    alert("stop paying")
+                    applicable =false;
+                    
+                    }
+                    }
+                }}
+                
+            console.log(totalAmount)
+
+        })
+
+        expenseForm.addEventListener('submit',function(event){
+
+            event.preventDefault();
+            const desc = document.getElementById('description').value;
+            const category = document.getElementById('category').value;
+            const amount = document.getElementById('amount').value;
+            const close = document.getElementById('close');
+            if(desc && category && !isNaN(amount) && applicable){
+                let list = document.createElement('tr');
+                list.innerHTML = `<td>${desc}</td>
+                <td>${category}</td> 
+                <td contenteditable="true" class="editable">${amount}</td>
+                <td><span class="close-btn">x</span></td> `
+                expensebody.appendChild(list);
+                document.getElementById('description').value =''
+                document.getElementById('category').value=''
+                document.getElementById('amount').value=''
+            }
+            
+        })
+        expensebody.addEventListener('click', function(event) {
+            if (event.target.classList.contains('close-btn')) {
+                let row = event.target.closest('tr');
+                if (row) {
+                    row.remove();
+                }
+            }
+        });
+
+        expensebody.addEventListener('blur', function(event) {
+            if (event.target.classList.contains('editable')) {
+                let editedAmount = event.target.textContent;
+                if (isNaN(editedAmount) || editedAmount.trim() === '') {
+                    alert('Please enter a valid number');
+                    event.target.textContent = '0'; 
+                }
+            }
+        }, true);
+
+
+
+        
+    </script>
+</body>
+</html>
