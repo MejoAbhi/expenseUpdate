@@ -80,6 +80,10 @@
         #expensebody{
             color: aliceblue;
             
+            
+        }
+        .close-btn{
+            color: aliceblue;
         }
         }
 
@@ -179,11 +183,13 @@
                 list.innerHTML = `<td>${desc}</td>
                 <td>${category}</td> 
                 <td contenteditable="true" class="editable">${amount}</td>
-                <td><span class="close-btn">x</span></td> `
+                <td><span class="close-btn id="cls-btn">x</span></td> `
                 expensebody.appendChild(list);
                 document.getElementById('description').value =''
                 document.getElementById('category').value=''
                 document.getElementById('amount').value=''
+                
+                
             }
             
             
