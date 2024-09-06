@@ -4,101 +4,131 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
+    
     <style>
-        .container{
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            padding: 5px;
-            gap: 10px;
-           
-        }
-        header{
-            display: flex;
-            justify-content: center;
-            color: lime;
-        }
-        span{
-            color: goldenrod;
-        }
-        form{
-            display: flex;
-            justify-content: space-between;
-            
-        }
-        h3{
-            font-size: large;
-            display: flex;
-            justify-content: center;
-        }
-        th{
-            background: greenyellow;
-            
-        }
-        .close-btn {
-            cursor: pointer;
-            color:#333;
-            font-weight: bold;
-            text-align: center;
-            line-height: 1;
-        }
-        .close-btn:hover {
-            color: rgb(245, 30, 30);
-        }
-        #limit{
-            border: 2px solid orange;
-        }
-      
-        @media(max-width: 480px){
-            .container{
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 5px;
-            gap: 10px;
-        }
-            form{
-               
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 80%;
-           
-        }
-        #limit{
-            border: 2px solid orange;
-            padding: 5px;
-            border-radius: 10px;
-            width: 80%;
-            
-        }
-        #category,#description,#amount{
-            border: 2px solid orange;
-            padding: 5px;
-            border-radius: 10px; 
-        }
-        .formSubmit{
-            border: 2px solid green;
-            background-color: lime;
-            border-radius: 10px;
-            height: 30px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            
-        }
-        #expensebody{
-            color: aliceblue;
-            
-            
-        }
-        .close-btn{
-            color: aliceblue;
-        }
-        }
+.container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    gap: 10px;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    color: lime;
+}
+
+span {
+    color: goldenrod;
+}
+
+form {
+    display: flex;
+    justify-content: space-between;
+}
+
+h3 {
+    font-size: large;
+    display: flex;
+    justify-content: center;
+}
+
+th {
+    background: greenyellow;
+}
+
+.close-btn {
+    cursor: pointer;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: rgb(245, 30, 30);
+}
+
+#limit {
+    border: 2px solid orange;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+
+table {
+    width: 100%;
+    table-layout: auto; 
+}
+
+td, th {
+    overflow-wrap:break-word;
+    word-wrap: break-word; 
+    white-space: normal; 
+}
+
+tbody {
+    color: aliceblue;
+}
+
+@media (max-width: 480px) {
+    .container {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 80%;
+    }
+
+    #limit {
+        border: 2px solid orange;
+        padding: 5px;
+        border-radius: 10px;
+        width: 75%;
+    }
+
+    #category, #description, #amount {
+        border: 2px solid orange;
+        padding: 5px;
+        border-radius: 10px; 
+    }
+
+    .formSubmit {
+        border: 2px solid green;
+        background-color: lime;
+        border-radius: 10px;
+        height: 30px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    tbody {
+        color: aliceblue;
+    }
+
+    .close-btn {
+        color: aliceblue;
+    }
+}
 
     </style>
 </head>
