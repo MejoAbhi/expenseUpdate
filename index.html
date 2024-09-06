@@ -9,6 +9,8 @@
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
+            padding: 5px;
+            gap: 10px;
         }
         header{
             display: flex;
@@ -42,18 +44,48 @@
         .close-btn:hover {
             color: rgb(245, 30, 30);
         }
+        #limit{
+            border: 2px solid orange;
+        }
       
         @media(max-width: 480px){
+            .container{
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            padding: 5px;
+            gap: 10px;
+        }
             form{
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
+        #limit{
+            border: 2px solid orange;
+            padding: 5px;
+            border-radius: 10px;
+            
+        }
+        #category,#description,#amount{
+            border: 2px solid orange;
+            padding: 5px;
+            border-radius: 10px; 
+        }
+        .formSubmit{
+            border: 2px solid green;
+            background-color: lime;
+            border-radius: 10px;
+        }
+        #expensebody{
+            color: aliceblue;
+            
+        }
         }
 
     </style>
 </head>
-<body>
+<body style="background-color: #333;">
     <section class="container">
         <header class="header"><h2>Daily Expence<span>$</span></h2></header>
         <input id="limit" type="number" placeholder="enter the limit">
@@ -70,7 +102,7 @@
             </select><br>
             <input type="number" id="amount" placeholder="Amount" required/><br>
             
-            <input type="submit" value="Add Expense">
+            <input class="formSubmit" type="submit" value="Add Expense">
 
         </form>
         <h3><u>Expense Summary</u></h3>
@@ -90,50 +122,59 @@
         </table>
 
     </section>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+   
     <script>
         let expenseForm = document.getElementById('expenseform');
         let expenseTable = document.getElementById('expenseTable');
         let expensebody = document.getElementById('expensebody');
         let applicable =true;
-
+        
        let limit = document.getElementById('limit');
-        expenseForm.addEventListener('submit',function(e){
-            // event.preventDefault();
-            let amounttab = expensebody.getElementsByTagName('tr');
-            let totalAmount = 0;
+       
+       let total =0;
+       expenseForm.addEventListener('submit',function(event){
+        event.preventDefault();    
+        let inputval =parseInt(document.getElementById('amount').value);
+        let limitamount = limit.value;   
+
+            total=total+inputval;
+            console.log(total)
+
+            if(total>limitamount){
+                alert('Stop Bying')
+                applicable =false;
+                total=total-inputval;
+                console.log(total)
+            }
             
-            for(let i of amounttab){
-                // let row = amounttab[i];
-                
-                let amount =i.getElementsByTagName('td');
-                if (amount.length > 2){
-                    let amountValue = parseInt(amount[2].textContent);
-                    if (!isNaN(amountValue)) {
-                        totalAmount += amountValue;
-                        let limitamount = limit.value;
-                
-                    if(!isNaN(totalAmount) && totalAmount>limitamount){
-                    alert("stop paying")
-                    applicable =false;
-                    
-                    }
-                    }
-                }}
-                
-            console.log(totalAmount)
-
-        })
-
-        expenseForm.addEventListener('submit',function(event){
-
-            event.preventDefault();
             const desc = document.getElementById('description').value;
             const category = document.getElementById('category').value;
             const amount = document.getElementById('amount').value;
             const close = document.getElementById('close');
-            if(desc && category && !isNaN(amount) && applicable){
+            // let amounttab = expensebody.getElementsByTagName('tr');
+            // let totalAmount = 0;
+
+            // for(let i of amounttab){
+            //    console.log(amounttab)
+            //    console.log(i);
+            //     let amount =i.getElementsByTagName('td');
+            //     // console.log(amount)
+            //     if (amount.length > 0){
+            //         let amountValue = parseInt(amount[2].textContent);
+            //         if (!isNaN(amountValue)) {
+            //             totalAmount += amountValue;
+            //             let limitamount = limit.value;
+                
+            //         if(!isNaN(totalAmount) && totalAmount>limitamount){
+            //         alert("stop paying")
+            //         applicable =false;
+                    
+            //         }
+            //         }
+            //     }}
+                
+            // console.log(totalAmount)
+            if(desc && category && !isNaN(amount) && applicable ){
                 let list = document.createElement('tr');
                 list.innerHTML = `<td>${desc}</td>
                 <td>${category}</td> 
@@ -144,6 +185,7 @@
                 document.getElementById('category').value=''
                 document.getElementById('amount').value=''
             }
+            
             
         })
         expensebody.addEventListener('click', function(event) {
