@@ -181,10 +181,7 @@ tbody {
        
        let total =0;
        
-       expenseForm.addEventListener('submit',function(event){
-        event.preventDefault();  
-        
-        
+       function calculate(){
         let inputval =parseInt(document.getElementById('amount').value);
         const desc = document.getElementById('description').value;
         const category = document.getElementById('category').value;
@@ -192,17 +189,17 @@ tbody {
         const close = document.getElementById('close');
 
         let limitamount = limit.value;
-        
+        total=total+inputval;
+         console.log("main value",total)
         
         if(limitamount){
 
-            total=total+inputval;
-            console.log(total)
+            
             
             if(total>limitamount){
                 alert('Stop Bying')
                 applicable =false;
-                total=total-inputval;
+                // total=total-inputval;
                 
 
                     let list = document.createElement('tr');
@@ -215,13 +212,13 @@ tbody {
                     document.getElementById('category').value=''
                     document.getElementById('amount').value=''
                     list.style.color ='red';
-                    console.log(total)
+                    // console.log(total)
                 }
 
             
             //if there is limit value
         
-            if(desc && category && !isNaN(amount) && applicable ){
+            else if(desc && category && !isNaN(amount) && applicable ){
                 let list = document.createElement('tr');
                 list.innerHTML = `<td>${desc}</td>
                 <td>${category}</td> 
@@ -250,13 +247,27 @@ tbody {
                 
             }
         }
+       }
+       expenseForm.addEventListener('submit',function(event){
+        event.preventDefault();  
+        calculate();
+        
+       
             
 })
         expensebody.addEventListener('click', function(event) {
+            
             if (event.target.classList.contains('close-btn')) {
+                
                 let row = event.target.closest('tr');
                 if (row) {
+                    let deleterow = row.cells[2].textContent;
+                    total = parseInt(total-deleterow);
+                    
+                    console.log("After delete", total);
                     row.remove();
+                   
+                    
                 }
             }
         });
