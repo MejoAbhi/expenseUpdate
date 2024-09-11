@@ -178,8 +178,13 @@ tbody {
         let applicable =true;
         
        let limit = document.getElementById('limit');
+       let mainAmount = document.getElementById('mainamount');
+
        
        let total =0;
+       function updateTotal() {
+            // mainAmount.textContent = `Total Amount: $${total.toFixed(2)}`;
+        }
        
        function calculate(){
         let inputval =parseInt(document.getElementById('amount').value);
@@ -187,10 +192,11 @@ tbody {
         const category = document.getElementById('category').value;
         const amount = document.getElementById('amount').value;
         const close = document.getElementById('close');
-
+        
         let limitamount = limit.value;
         total=total+inputval;
-         console.log("main value",total)
+        // updateTotal();
+        console.log("main value",total)
         
         if(limitamount){
 
@@ -248,6 +254,7 @@ tbody {
             }
         }
        }
+
        expenseForm.addEventListener('submit',function(event){
         event.preventDefault();  
         calculate();
@@ -263,7 +270,7 @@ tbody {
                 if (row) {
                     let deleterow = row.cells[2].textContent;
                     total = parseInt(total-deleterow);
-                    
+                    // updateTotal();
                     console.log("After delete", total);
                     row.remove();
                    
