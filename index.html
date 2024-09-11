@@ -135,6 +135,7 @@ tbody {
 <body style="background-color: #333;">
     <section class="container">
         <header class="header"><h2>Daily Expense<span>$</span></h2></header>
+        <div id="mainamount"></div>
         <input id="limit" type="number" placeholder="Enter Your Budget">
         <form id="expenseform">
             <input type="text" id="description" placeholder="Expense Description" required/><br>
@@ -179,8 +180,11 @@ tbody {
        let limit = document.getElementById('limit');
        
        let total =0;
+       
        expenseForm.addEventListener('submit',function(event){
-        event.preventDefault();    
+        event.preventDefault();  
+        
+        
         let inputval =parseInt(document.getElementById('amount').value);
         const desc = document.getElementById('description').value;
         const category = document.getElementById('category').value;
@@ -194,14 +198,29 @@ tbody {
 
             total=total+inputval;
             console.log(total)
-           
+            
             if(total>limitamount){
                 alert('Stop Bying')
                 applicable =false;
                 total=total-inputval;
-                console.log(total)
+                
 
-            }
+                    let list = document.createElement('tr');
+                    list.innerHTML = `<td>${desc}</td>
+                    <td>${category}</td> 
+                    <td contenteditable="true" class="editable">${amount}</td>
+                    <td><span class="close-btn id="cls-btn">x</span></td> `
+                    expensebody.appendChild(list);
+                    document.getElementById('description').value =''
+                    document.getElementById('category').value=''
+                    document.getElementById('amount').value=''
+                    list.style.color ='red';
+                    console.log(total)
+                }
+
+            
+            //if there is limit value
+        
             if(desc && category && !isNaN(amount) && applicable ){
                 let list = document.createElement('tr');
                 list.innerHTML = `<td>${desc}</td>
@@ -214,6 +233,8 @@ tbody {
                 document.getElementById('amount').value=''
             }
         }else{
+            //if there is no limit value
+            limit.style.display ='none'
             
             if(desc && category && !isNaN(amount) && applicable ){
                 let list = document.createElement('tr');
@@ -225,6 +246,8 @@ tbody {
                 document.getElementById('description').value =''
                 document.getElementById('category').value=''
                 document.getElementById('amount').value=''
+
+                
             }
         }
             
@@ -248,7 +271,7 @@ tbody {
             }
         }, true);
 
-// let amounttab = expensebody.getElementsByTagName('tr');
+            // let amounttab = expensebody.getElementsByTagName('tr');
             // let totalAmount = 0;
 
             // for(let i of amounttab){
